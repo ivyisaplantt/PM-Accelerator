@@ -3,23 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Weather App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
 </head>
 <body>
-    <h1>🌦️ Weather App</h1>
-
-    <form method="POST">
+    <div class="index-container">
+        <h1>🌦️ Save a Weather Entry</h1>
+        <form method="POST">
         <input type="text" name="location" placeholder="City or Zip">
+        <select name="unit">
+            <option value="metric">°C</option>
+            <option value="imperial">°F</option>
+        </select>
+        <input type="date" name="start_date">
         <button type="submit">Get Weather</button>
-    </form>
+        </form>
+        {% if error %}<p style="color: red;">{{ error }}</p>{% endif %}
 
-    {% if error %}
-        <p style="color: red;">{{ error }}</p>
-    {% endif %}
-
-    {% if weather %}
-        <h2>Weather in {{ weather.location }}</h2>
+        {% if weather %}
+        <h3>Weather in {{ weather.location }}</h3>
         <p>{{ weather.description }}</p>
-        <p>🌡️ {{ weather.temperature }} °C</p>
-    {% endif %}
+        <p>🌡️ {{ weather.temperature }} {{ weather.unit }}</p>
+        {% endif %}
+
+        {% if forecast %}
+        <h3>📅 5-Day Forecast</h3>
+        <ul>
+            {% for day in forecast %}
+            <li><strong>{{ day.date }}</strong>: {{ day.desc }}, 🌡️ {{ day.temp }} {{ day.unit }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <p>created by Ivy Lu for <a href="https://www.linkedin.com/school/pmaccelerator/about/">PM Accelerator</a></p>
+    </div>
 </body>
 </html>
+

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+</head>
+<body>
+    <h2>Update Weather Entry</h2>
+    <form method="POST">
+    <input name="location" value="{{ entry.location }}">
+    <input name="date" value="{{ entry.date }}">
+    <input name="temperature" value="{{ entry.temperature }}">
+    <input name="description" value="{{ entry.description }}">
+    <button type="submit">Update</button>
+    </form>
+</body>
+</html>
